@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"name": "authentication",
+			"path": "people/authentication"
+		},
+		{
 			"name": "user",
 			"path": "people/user"
 		},
