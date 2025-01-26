@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "backend",
+			"path": "backend"
+		},
+		{
+			"name": "authentication",
+			"path": "people/authentication"
+		},
+		{
+			"name": "user",
+			"path": "people/user"
+		},
+		{
+			"name": "article",
+			"path": "product/article"
+		},
+		{
+			"name": "price",
+			"path": "product/price"
+		},
+		{
+			"name": "review",
+			"path": "product/review"
+		},
+		{
+			"name": "stock",
+			"path": "supply/stock"
+		}
+	],
+	"settings": {}
+}
