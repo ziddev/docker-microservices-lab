@@ -10,5 +10,7 @@ class Settings(BaseSettings):
     API_REVIEW_URL: str = "http://localhost:9033/api/v1/reviews"
     API_STOCK_URL: str = "http://localhost:9041/api/v1/stocks"
 
+    UPDATE_STOCK_DELAY: int = 20
+
 
 settings = Settings()

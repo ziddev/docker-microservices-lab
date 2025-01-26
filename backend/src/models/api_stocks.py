@@ -14,3 +14,16 @@ def set_stock(article_id, quantity, stock_delay):
 
 def delete_stock(article_id):
     return delete_data(f"{settings.API_STOCK_URL}/{article_id}")
+
+
+def increase_stock(article_id, quantity, update_delay):
+    return post_data(f"{settings.API_STOCK_URL}/{article_id}/_increase?quantity={quantity}&update_delay={update_delay}")
+
+
+def decrease_stock(article_id, quantity, update_delay):
+    return post_data(f"{settings.API_STOCK_URL}/{article_id}/_decrease?quantity={quantity}&update_delay={update_delay}")
+
+
+def delete_stock(article_id, quantity, update_delay):
+    return post_data(f"{settings.API_STOCK_URL}/{article_id}/_increase?update_delay={update_delay}",
+                     {"quantity": quantity})

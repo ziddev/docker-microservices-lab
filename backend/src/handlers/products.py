@@ -6,7 +6,7 @@ from models.models import ProductIn
 from models.api_articles import get_all_articles, create_article, get_article, delete_article
 from models.api_prices import get_price, set_price, delete_price
 from models.api_reviews import create_review, get_article_reviews, delete_article_reviews
-from models.api_stocks import get_stock, set_stock, delete_stock
+from models.api_stocks import get_stock, set_stock, delete_stock, increase_stock, decrease_stock
 from settings import settings
 
 
@@ -53,6 +53,28 @@ async def create_product(product: ProductIn,
     if error_apis:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Erreur API(s) externe(s) : {error_apis}")
     return {**article, "reviews": reviews, "price": price["price"], "stock": stock["quantity"]}
+
+
+@router.post("/{article_id}/_increase")
+async def increase_stock_by_id(article_id: str,
+                               quantity: float,
+                               update_delay: float = settings.UPDATE_STOCK_DELAY,
+                               user_info = Depends(get_user_info)):
+    res = increase_stock(article_id, quantity, update_delay)
+    create_review(article_id, f"Article {article_id} stock increased", f"Add at {datetime.now()}", user_info["user"]["email"], None)
+    return res
+
+
+@router.post("/{article_id}/_decrease")
+async def decrease_stock_by_id(article_id: str,
+                               quantity: float,
+                               update_delay: float = settings.UPDATE_STOCK_DELAY,
+                               user_info = Depends(get_user_info)):
+    res = decrease_stock(article_id, quantity, update_delay)
+    create_review(article_id, f"Article {article_id} stock decreased", f"Add at {datetime.now()}", user_info["user"]["email"], None)
+    return res
+
+
 
 
 def _get_product_extra_infos(article_id, selected_review):
