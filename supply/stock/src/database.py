@@ -57,7 +57,7 @@ def get_stock(stock_id):
 
 def save_stock(stock_id, stock_data):
     stock_file = _get_stock_path(stock_id)
-    sleep(10)
+    sleep(settings.UPDATE_DELAY)
     with open(stock_file, "w", encoding="utf-8") as f:
         json.dump(stock_data, f, indent=4, ensure_ascii=False)
     # Add a function to set a lock on the stock

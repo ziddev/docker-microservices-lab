@@ -10,6 +10,7 @@ from database import (
     release_lock
 )
 from models import StockIn
+from settings import settings
 
 
 router = APIRouter(
@@ -23,8 +24,8 @@ def wait_lock(stock_id):
         try:
             set_lock(stock_id)
             return
-        except:
-            sleep(0.01)
+        except Exception:
+            sleep(settings.RETRY_LOCK_DELAY)
 
 
 @router.post("")
