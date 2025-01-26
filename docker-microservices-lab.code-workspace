@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "product/review"
+		},
+		{
+			"path": "product/article"
+		},
+		{
+			"path": "product/price"
+		}
+	],
+	"settings": {}
+}
