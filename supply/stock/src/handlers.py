@@ -57,13 +57,13 @@ def _change_stock(article_id: str, quantity: float):
         release_lock(article_id)
 
 
-@router.post("{article_id}/_increase")
+@router.post("/{article_id}/_increase")
 async def increase_stock(article_id: str,
                          quantity: float):
     return _change_stock(article_id, quantity)
 
 
-@router.post("{article_id}/_decrease")
+@router.post("/{article_id}/_decrease")
 async def decrease_stock(article_id: str,
                          quantity: float):
     return _change_stock(article_id, -quantity)
