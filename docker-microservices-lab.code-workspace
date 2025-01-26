@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "product/price"
+		},
+		{
+			"path": "supply/stock"
 		}
 	],
 	"settings": {}
