@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from .common import get_user_info
 from models.models import AccountIn, AuthenticateIn
-from models.api_authentications import create_authentication, login, me
+from models.api_authentications import create_authentication, login
 from models.api_users import create_user
 
 
@@ -44,7 +44,7 @@ async def authenticate(authenticate: AuthenticateIn):
         token = login(authenticate.email, authenticate.password)
     except HTTPException as e:
         raise e
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Unauthorized")
     return token
 

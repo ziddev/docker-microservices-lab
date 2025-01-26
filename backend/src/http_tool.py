@@ -16,7 +16,7 @@ class HttpMethod(str, Enum):
     DELETE = "DELETE"
 
 
-def _request(method, url, body = {}, token: SecretStr = None):
+def _request(method, url, body={}, token: SecretStr = None):
     try:
         headers = default_headers
         if token:
@@ -37,7 +37,7 @@ def _request(method, url, body = {}, token: SecretStr = None):
         return res.json()
     except HTTPException as e:
         raise e
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Erreur API externe : {url}")
 
 
@@ -45,7 +45,7 @@ def fetch_data(url, token: SecretStr = None):
     return _request(HttpMethod.GET, url, None, token)
 
 
-def post_data(url, body = {}, token: SecretStr = None):
+def post_data(url, body={}, token: SecretStr = None):
     return _request(HttpMethod.POST, url, body, token)
 
 

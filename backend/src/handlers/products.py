@@ -19,7 +19,7 @@ router = APIRouter(
 @router.post("")
 async def create_product(product: ProductIn,
                          stock_delay: int = 0,
-                         user_info = Depends(get_user_info)):
+                         user_info=Depends(get_user_info)):
     error_apis = []
 
     # Step 1 : Create article
@@ -59,7 +59,7 @@ async def create_product(product: ProductIn,
 async def increase_stock_by_id(article_id: str,
                                quantity: float,
                                update_delay: float = settings.UPDATE_STOCK_DELAY,
-                               user_info = Depends(get_user_info)):
+                               user_info=Depends(get_user_info)):
     res = increase_stock(article_id, quantity, update_delay)
     create_review(article_id, f"Article {article_id} stock increased", f"Add at {datetime.now()}", user_info["user"]["email"], None)
     return res
@@ -69,12 +69,10 @@ async def increase_stock_by_id(article_id: str,
 async def decrease_stock_by_id(article_id: str,
                                quantity: float,
                                update_delay: float = settings.UPDATE_STOCK_DELAY,
-                               user_info = Depends(get_user_info)):
+                               user_info=Depends(get_user_info)):
     res = decrease_stock(article_id, quantity, update_delay)
     create_review(article_id, f"Article {article_id} stock decreased", f"Add at {datetime.now()}", user_info["user"]["email"], None)
     return res
-
-
 
 
 def _get_product_extra_infos(article_id, selected_review):
@@ -100,15 +98,14 @@ def _get_product_extra_infos(article_id, selected_review):
         pass
 
     # Step 4 : Complete the attributes
-    return {"price" : price.get("price", None),
-            "reviews" : reviews,
-            "stock" : stock.get("quantity", None)}
-
+    return {"price": price.get("price", None),
+            "reviews": reviews,
+            "stock": stock.get("quantity", None)}
 
 
 @router.get("")
 async def read_all_products(selected_review: int = 5,
-                            _ = Depends(get_user_info)):
+                            _=Depends(get_user_info)):
     articles = get_all_articles()
     for article in articles:
         article_id = article["id"]

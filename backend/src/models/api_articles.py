@@ -8,7 +8,7 @@ def get_all_articles():
 
 def create_article(title, description):
     return post_data(f"{settings.API_ARTICLE_URL}",
-                     {"title": title, 
+                     {"title": title,
                       "description": description})
 
 

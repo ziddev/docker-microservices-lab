@@ -8,7 +8,7 @@ def get_price(article_id):
 
 def set_price(article_id, price):
     return post_data(f"{settings.API_PRICE_URL}?fail_if_article_missing=false",
-                     {"article_id": article_id, 
+                     {"article_id": article_id,
                       "price": price})
 
 

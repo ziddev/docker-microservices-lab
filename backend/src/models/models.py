@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field, SecretStr
-from typing import List, Optional
+from typing import Optional
 
 
 class AccountIn(BaseModel):
