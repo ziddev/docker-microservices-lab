@@ -30,7 +30,8 @@ def wait_lock(stock_id):
 
 @router.post("")
 async def set_stock(stock: StockIn,
-                    fail_if_article_missing: bool = False):
+                    fail_if_article_missing: bool = False,
+                    update_delay: float = settings.UPDATE_DELAY):
     stock_data = stock.dict()
     article_id = stock_data["article_id"]
     if fail_if_article_missing:
@@ -38,20 +39,20 @@ async def set_stock(stock: StockIn,
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not found")
     wait_lock(article_id)
     try:
-        save_stock(article_id, stock_data)
+        save_stock(article_id, stock_data, update_delay)
         return stock_data
     finally:
         release_lock(article_id)
 
 
-def _change_stock(article_id: str, quantity: float):
+def _change_stock(article_id: str, quantity: float, update_delay: float):
     wait_lock(article_id)
     try:
         current_stock = get_stock(article_id)
         if not current_stock:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not found")
-        current_stock["stock"] += quantity
-        save_stock(article_id, current_stock)
+        current_stock["quantity"] += quantity
+        save_stock(article_id, current_stock, update_delay)
         return current_stock
     finally:
         release_lock(article_id)
@@ -59,14 +60,16 @@ def _change_stock(article_id: str, quantity: float):
 
 @router.post("/{article_id}/_increase")
 async def increase_stock(article_id: str,
-                         quantity: float):
-    return _change_stock(article_id, quantity)
+                         quantity: float,
+                         update_delay: float = settings.UPDATE_DELAY):
+    return _change_stock(article_id, quantity, update_delay)
 
 
 @router.post("/{article_id}/_decrease")
 async def decrease_stock(article_id: str,
-                         quantity: float):
-    return _change_stock(article_id, -quantity)
+                         quantity: float,
+                         update_delay: float = settings.UPDATE_DELAY):
+    return _change_stock(article_id, -quantity, update_delay)
 
 
 @router.get("")

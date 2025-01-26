@@ -3,4 +3,4 @@ from pydantic import BaseModel
 
 class StockIn(BaseModel):
     article_id:  str
-    stock: float
+    quantity: float
