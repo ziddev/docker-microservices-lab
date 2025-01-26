@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"name": "backend",
+			"path": "backend"
+		},
+		{
 			"name": "authentication",
 			"path": "people/authentication"
 		},
