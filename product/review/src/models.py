@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class ReviewIn(BaseModel):
@@ -6,3 +7,4 @@ class ReviewIn(BaseModel):
     title:  str
     message: str
     user_id: str
+    rating: Optional[int]
