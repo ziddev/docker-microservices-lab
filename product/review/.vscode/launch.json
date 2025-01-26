@@ -2,14 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Price API",
+            "name": "Launch Review API",
             "type": "python",
             "request": "launch",
             "module": "uvicorn",
             "args": [
                 "wsgi:app",
                 "--host", "127.0.0.1",
-                "--port", "9032",
+                "--port", "9033",
                 "--reload"
             ],
             "env": {

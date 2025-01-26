@@ -9,7 +9,7 @@
             "args": [
                 "wsgi:app",
                 "--host", "127.0.0.1",
-                "--port", "9021",
+                "--port", "9031",
                 "--reload"
             ],
             "env": {
