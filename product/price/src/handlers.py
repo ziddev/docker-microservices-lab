@@ -18,10 +18,10 @@ router = APIRouter(
 
 @router.post("")
 async def set_price(price: PriceIn,
-                    fail_if_missing: bool = False):
+                    fail_if_article_missing: bool = False):
     price_data = price.dict()
     article_id = price_data["article_id"]
-    if fail_if_missing:
+    if fail_if_article_missing:
         if not get_price(article_id):
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not found")
     price_data = price.dict()
