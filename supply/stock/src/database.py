@@ -80,7 +80,7 @@ def delete_stock(stock_id):
 def set_lock(stock_id):
     lock_file = _get_lock_path(stock_id)
     lock_data = {"stock_id": stock_id}
-    with open(lock_file, "a", encoding="utf-8") as f:
+    with open(lock_file, "x", encoding="utf-8") as f:
         json.dump(lock_data, f, indent=4, ensure_ascii=False)
 
 
